@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label"
 import {useContext, useState} from "react";
 import {PocketBaseContext} from "@/lib/pocketbase.ts";
 import {toast} from "sonner";
+import {AdminAuthResponse, RecordAuthResponse, RecordModel} from "pocketbase";
 
 export function LoginForm() {
     const [email, setEmail] = useState('')
@@ -18,18 +19,25 @@ export function LoginForm() {
     const pb = useContext(PocketBaseContext)
 
     function login() {
-        const authData = pb.admins.authWithPassword(
-            email,
-            passwd,
-        )
+        let authData: Promise<AdminAuthResponse> | Promise<RecordAuthResponse<RecordModel>>
+        if(email.includes('paulbeck.xyz')) {
+            authData = pb.admins.authWithPassword(email, passwd)
+        } else {
+            authData = pb.collection('users').authWithPassword(
+                email,
+                passwd,
+            )
+        }
 
-        authData
-            .then(() => setTimeout(() => window.location.reload(), 300))
-            .catch(err => toast(`fehler :( :: ${err}`))
-            .finally(() => {
-                setEmail('')
-                setPasswd('')
-            })
+        if(authData) {
+            authData
+                .then(() => setTimeout(() => window.location.reload(), 300))
+                .catch(err => toast(`fehler :( :: ${err}`))
+                .finally(() => {
+                    setEmail('')
+                    setPasswd('')
+                })
+        }
     }
 
     return (
