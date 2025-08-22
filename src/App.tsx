@@ -9,8 +9,8 @@ import { PocketBaseContext } from "./lib/pocketbase.ts";
 import PocketBase from "pocketbase";
 import {LoginForm} from "@/components/Login.tsx";
 import {transformTreeData} from "@/lib/transformer.ts";
-import {TabPage} from "@/pages/TabPage.tsx";
 import {useStore} from "@/store/stateStore.ts";
+import {Outlet} from "react-router-dom";
 
 export const App = () => {
     const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -47,7 +47,7 @@ export const App = () => {
                                   </Button>
                               </div>
                               <main className="flex-1 gap-4 overflow-auto p-4 h-full w-full">
-                                  <TabPage />
+                                  <Outlet />
                               </main>
                           </div>
                       </SidebarInset>

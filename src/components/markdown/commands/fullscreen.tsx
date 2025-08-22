@@ -13,7 +13,7 @@ export const fullscreen: ICommand = {
     <Fullscreen/>
   ),
   execute: (
-    state: TextState,
+      _state: TextState,
     api: TextAreaTextApi,
     dispatch?: React.Dispatch<ContextStore>,
     executeCommandState?: ExecuteCommandState,

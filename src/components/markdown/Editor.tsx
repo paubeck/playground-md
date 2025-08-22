@@ -177,7 +177,7 @@ const InternalMDEditor = React.forwardRef<RefMDEditor, MDEditorProps>(
         let mdPreview = useMemo(
             () => (
                 <div ref={previewRef} className={previewClassName}>
-                    <MarkdownPreview {...previewOptions} onScroll={handlePreviewScroll} source={state.markdown || ''} />
+                    <MarkdownPreview {...previewOptions} onScroll={handlePreviewScroll} source={state.markdown || ''} wrapperElement={{"data-color-mode": "light"}} />
                 </div>
             ),
             [previewClassName, previewOptions, state.markdown],
